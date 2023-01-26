@@ -1,0 +1,50 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+  All products
+{% endblock %}
+
+{% block content %}
+  <div class="row mt-5">
+    <div class="col-md-2 justify-content-center pt-4">
+      <ul class="list-group">
+        <a class="text-decoration-none" href="{{ path('app_produits') }}"><li class="list-group-item btn btn-primary text-center">All</li></a>
+
+        {% for categorie in categories %}
+          <a class="text-decoration-none" href="{{ path('app_produits_categorie', { slug: categorie.slug }) }}"><li class="list-group-item btn btn-primary text-center">{{ categorie.nom }}</li></a>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="col-md-10 justify-content-center text-center">
+      <h4>liste des produits</h4>
+      {% if produits is not empty %}
+        {% for produit in produits %}
+          <div class="row justify-content-center">
+            <div class="col card mb-3" style="max-width: 800px;">
+              <div class="row g-0">
+                <div class="col-md-6 text-center">
+                  <img src="{{ asset('photos/produit/' ~ produit.photo) }}" class="img-fluid rounded-start" alt="" />
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body text-center">
+                    <h4 class="card-title"><a href="{{ path('app_produit_show', { id: produit.id }) }}">{{ produit.titre }}</a></h4>
+                    <h6>categorie :{{ produit.categorie.nom }}</h6>
+                    <h5>couleur : {{ produit.couleur }}</h5>
+                    <h5>taille : {{ produit.taille }}</h5>
+                    <h5>il en reste {{ produit.stock }}</h5>
+                    <h5>prix : <strong>{{ produit.prix }}€</strong></h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="alert alert-danger mt-5">
+          <p>aucun produit dans cette categorie pour le moment ! revenez plutard</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

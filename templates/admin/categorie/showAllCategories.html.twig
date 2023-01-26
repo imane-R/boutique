@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+  liste categorie admin
+{% endblock %}
+
+{% block content %}
+  <table class="table text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>Nom</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for categorie in categories %}
+        <tr>
+          <td>{{ categorie.nom }}</td>
+
+          <td>
+            <a href="{{ path('admin_app_categorie_update', { slug: categorie.slug }) }}"><i class="fas fa-edit mx-1 text-primary"></i></a>
+            <a href="{{ path('admin_app_categorie_delete', { slug: categorie.slug }) }}" onClick="return confirm('êtes vous sûr de vouloir supprimer la categorie ?')"><i class="fas fa-trash mx-1 text-danger"></i></a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
